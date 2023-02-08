@@ -1,0 +1,15 @@
+// Exporting Landsat 8 Images
+
+// Exporting Landsat 8 Images
+var roi = roi;
+
+// Load Landsat 8
+var image = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
+.filterDate('2017-01-01', '2017-12-31')
+.filterBounds(roi)  //el área de donde saldra la imagen
+.sort('CLOUD_COVER') // 
+.first(); //La con menos nube significa first  
+
+var visPaaramsTrue = {bands: ['B4', 'B3', 'B2'], min: 0, max:3000, gamma: 1.4}; // para visualizar la imagen
+Map.addLayer(image.clip(roi), visPaaramsTrue, 'Landsat 2017');
+Map.centerObject(roi, 10);  // para que haga zoom a la zona
